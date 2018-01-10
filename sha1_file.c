@@ -693,10 +693,10 @@ void *xmmap_gently(void *start, size_t length,
 	void *ret;
 
 	mmap_limit_check(length);
+	if (!length)
+		return NULL;
 	ret = mmap(start, length, prot, flags, fd, offset);
 	if (ret == MAP_FAILED) {
-		if (!length)
-			return NULL;
 		release_pack_memory(length);
 		ret = mmap(start, length, prot, flags, fd, offset);
 	}
@@ -710,6 +710,14 @@ void *xmmap(void *start, size_t length,
 	if (ret == MAP_FAILED)
 		die_errno("mmap failed");
 	return ret;
+}
+
+int xmunmap(void *start, size_t length)
+{
+	if (!length)
+		return 0;
+
+	return munmap(start, length);
 }
 
 /*

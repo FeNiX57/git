@@ -162,7 +162,7 @@ static void acquire_snapshot(struct snapshot *snapshot)
 static void clear_snapshot_buffer(struct snapshot *snapshot)
 {
 	if (snapshot->mmapped) {
-		if (munmap(snapshot->buf, snapshot->eof - snapshot->buf))
+		if (xmunmap(snapshot->buf, snapshot->eof - snapshot->buf))
 			die_errno("error ummapping packed-refs file %s",
 				  snapshot->refs->path);
 		snapshot->mmapped = 0;
