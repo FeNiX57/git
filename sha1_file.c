@@ -712,12 +712,19 @@ void *xmmap(void *start, size_t length,
 	return ret;
 }
 
-int xmunmap(void *start, size_t length)
+int xmunmap_gently(void *start, size_t length)
 {
 	if (!length)
 		return 0;
 
 	return munmap(start, length);
+}
+
+void xmunmap(void *start, size_t length)
+{
+	int ret = xmunmap_gently(start, length);
+	if (ret)
+		die_errno("munmap failed");
 }
 
 /*
