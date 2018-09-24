@@ -152,6 +152,7 @@ struct packing_data {
 };
 
 void prepare_packing_data(struct packing_data *pdata);
+void release_packing_data(struct packing_data *pdata);
 
 static inline void packing_data_lock(struct packing_data *pdata)
 {

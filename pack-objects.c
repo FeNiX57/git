@@ -152,6 +152,11 @@ void prepare_packing_data(struct packing_data *pdata)
 	pthread_mutex_init(&pdata->lock, NULL);
 }
 
+void release_packing_data(struct packing_data *pdata)
+{
+	pthread_mutex_destroy(&pdata->lock);
+}
+
 struct object_entry *packlist_alloc(struct packing_data *pdata,
 				    const unsigned char *sha1,
 				    uint32_t index_pos)

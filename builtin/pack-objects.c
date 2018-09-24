@@ -3381,5 +3381,8 @@ int cmd_pack_objects(int argc, const char **argv, const char *prefix)
 			   _("Total %"PRIu32" (delta %"PRIu32"),"
 			     " reused %"PRIu32" (delta %"PRIu32")"),
 			   written, written_delta, reused, reused_delta);
+
+	release_packing_data(&to_pack);
+
 	return 0;
 }
